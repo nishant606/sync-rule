@@ -1,23 +1,33 @@
+# PowerSync Configuration - All Hardcoded Values
+# yaml-language-server: $schema=https://unpkg.com/@powersync/service-schema@latest/json-schema/powersync-config.json
+
 telemetry:
   disable_telemetry_sharing: false
 
+# PostgreSQL source database replication
 replication:
   connections:
     - type: postgres
       uri: postgresql://postgres:3gbFe-22Dc33BBE5GDD*AcF3Cfacg2Da@trolley.proxy.rlwy.net:27306/railway
 
+# MongoDB for sync bucket storage
 storage:
   type: mongodb
   uri: mongodb://mongo:PYdwpNvpWTNQSXJkVKNiNHlgTfWfpEMG@mongodb.railway.internal:27017/powersync
 
+# Server port - hardcoded
 port: 8080
 
+# Sync rules configuration
 sync_rules:
-  path: /rules/sync_rules.yaml
+  path: /home/powersync/sync_rules.yaml
 
+# Client authentication - DISABLED for testing
+# IMPORTANT: Enable authentication in production!
 client_auth:
   disable: true
 
+# Admin API tokens
 api:
   tokens:
     - my_secure_admin_token_replace_in_production_123456789
