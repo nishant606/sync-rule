@@ -3,6 +3,11 @@ builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "sh -c 'mkdir -p /rules && curl -s -L -o /rules/sync_rules.yaml https://raw.githubusercontent.com/nishant606/sync-rule/main/sync_rules.yaml && echo Sync rules downloaded && powersync-service --port=$PORT --host=0.0.0.0'"
+startCommand = "sh -c 'curl -s -L -o /rules/sync_rules.yaml https://raw.githubusercontent.com/nishant606/sync-rule/main/sync_rules.yaml && echo \"=== Sync rules downloaded ===\" && powersync-service --config=/app/powersync.yaml --host=0.0.0.0 --port=$PORT'"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
+
+[deploy.healthcheck]
+path = "/api/health"
+timeout = 100
+interval = 60
