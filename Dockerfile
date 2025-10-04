@@ -1,13 +1,18 @@
 FROM journeyapps/powersync-service:latest
 
-RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+# Install curl for downloading files
+RUN apt-get update && \
+    apt-get install -y curl && \
+    rm -rf /var/lib/apt/lists/*
 
+# Create necessary directories
 RUN mkdir -p /rules /app
+
+# Set working directory
 WORKDIR /app
 
-# Copy powersync.yaml into the container
-COPY powersync.yaml /app/powersync.yaml
-
+# Expose port
 EXPOSE 8080
 
-CMD ["powersync-service", "--config=/app/powersync.yaml"]
+# Default command
+CMD ["powersync-service", "--host=0.0.0.0", "--port=8080"]
