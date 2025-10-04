@@ -3,7 +3,7 @@ builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "/usr/local/bin/powersync start --config=/tmp/powersync.yaml"
+startCommand = "powersync start --config=/tmp/powersync.yaml"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
 
