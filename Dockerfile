@@ -1,19 +1,17 @@
-# PowerSync Dockerfile - Downloads sync rules at build time
+# PowerSync Dockerfile - No root permissions needed
 FROM journeyapps/powersync-service:latest
 
-# Create directories
-RUN mkdir -p /rules /app
-
-WORKDIR /app
+# Set working directory (should have permissions here)
+WORKDIR /home/powersync
 
 # Copy config file
-COPY powersync.yaml /app/powersync.yaml
+COPY powersync.yaml ./powersync.yaml
 
-# Download sync rules during build (Railway has internet during build)
-ADD https://raw.githubusercontent.com/nishant606/sync-rule/main/sync_rules.yaml /rules/sync_rules.yaml
+# Download sync rules during build
+ADD https://raw.githubusercontent.com/nishant606/sync-rule/main/sync_rules.yaml ./sync_rules.yaml
 
 # Expose port
 EXPOSE 8080
 
 # Start command
-CMD ["powersync-service", "--config=/app/powersync.yaml", "--host=0.0.0.0", "--port=8080"]
+CMD ["powersync-service", "--config=/home/powersync/powersync.yaml", "--host=0.0.0.0", "--port=8080"]
