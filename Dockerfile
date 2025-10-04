@@ -1,4 +1,4 @@
-FROM ghcr.io/powersync-ja/powersync-service:latest
+FROM journeyapps/powersync-service:latest
 
 WORKDIR /tmp
 
@@ -7,4 +7,4 @@ COPY sync_rules.yaml /tmp/sync_rules.yaml
 
 EXPOSE 8080
 
-CMD ["/usr/local/bin/powersync", "start", "--config=/tmp/powersync.yaml"]
+CMD ["powersync", "start", "--config=/tmp/powersync.yaml"]
