@@ -1,17 +1,10 @@
-# PowerSync Dockerfile - No root permissions needed
-FROM journeyapps/powersync-service:latest
+FROM ghcr.io/powersync-ja/powersync-service:latest
 
-# Set working directory (should have permissions here)
-WORKDIR /home/powersync
+WORKDIR /tmp
 
-# Copy config file
-COPY powersync.yaml ./powersync.yaml
+COPY powersync.yaml /tmp/powersync.yaml
+COPY sync_rules.yaml /tmp/sync_rules.yaml
 
-# Download sync rules during build
-ADD https://raw.githubusercontent.com/nishant606/sync-rule/main/sync_rules.yaml ./sync_rules.yaml
-
-# Expose port
 EXPOSE 8080
 
-# Start command
-CMD ["powersync-service", "--config=/home/powersync/powersync.yaml", "--host=0.0.0.0", "--port=8080"]
+CMD ["/usr/local/bin/powersync", "start", "--config=/tmp/powersync.yaml"]
